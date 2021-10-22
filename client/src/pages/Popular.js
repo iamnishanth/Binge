@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useStore } from "../contexts/StoreContext";
 import { IMAGE_BASE_URL } from "../requests";
 
@@ -36,11 +37,16 @@ const Popular = () => {
                 className="col-6 md:col-3 lg:col-auto flex justify-center"
                 key={poster.id}
               >
-                <img
-                  className="h-38 md:h-56 px-1 rounded-md cursor-pointer"
-                  src={IMAGE_BASE_URL + poster.poster_path}
-                  alt={poster.id}
-                />
+                <Link
+                  to={`/${poster.first_air_date ? "tv" : "movie"}/${poster.id}`}
+                  role="img"
+                >
+                  <img
+                    className="h-38 md:h-56 px-1 rounded-md cursor-pointer"
+                    src={IMAGE_BASE_URL + poster.poster_path}
+                    alt={poster.id}
+                  />
+                </Link>
               </div>
             ))}
         </div>

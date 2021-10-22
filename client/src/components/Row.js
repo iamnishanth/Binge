@@ -16,7 +16,9 @@ const Row = ({ row }) => {
             alt={poster.id}
             key={poster.id}
             onClick={() => {
-              history.push("/");
+              history.push(
+                `/${poster.first_air_date ? "tv" : "movie"}/${poster.id}`
+              );
             }}
           />
         ))}
