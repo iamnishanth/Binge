@@ -8,7 +8,7 @@ export const useStore = () => useContext(StoreContext);
 
 const StoreProvider = ({ children }) => {
   const [homeContent, setHomeContent] = useState([]);
-  const [newContent, setNewContent] = useState([]);
+  const [newContent, setNewContent] = useState({});
 
   useEffect(() => {
     const fetchHomeContent = async () => {
@@ -26,12 +26,23 @@ const StoreProvider = ({ children }) => {
       let threeMonthBefore = new Date();
       threeMonthBefore = threeMonthBefore.setDate(today.getDate() - 90);
       today = today.toISOString().split("T")[0];
-      let url =
+      let movieURL =
         BASE_URL +
         newRelease.movie +
         `&primary_release_date.gte=${threeMonthBefore}&primary_release_date.lte=${today}`;
-      let result = await axios.get(url);
-      setNewContent(result.data.results);
+      let tvURL =
+        BASE_URL +
+        newRelease.tv +
+        `&primary_release_date.gte=${threeMonthBefore}&primary_release_date.lte=${today}`;
+      let movieResult = await axios.get(movieURL);
+      let tvResult = await axios.get(tvURL);
+
+      console.log({ movieResult, tvResult });
+
+      setNewContent({
+        movie: movieResult.data.results,
+        tv: tvResult.data.results,
+      });
     };
     fetchHomeContent();
     fetchNewContent();
