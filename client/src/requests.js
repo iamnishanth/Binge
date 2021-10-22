@@ -1,5 +1,6 @@
 export const BASE_URL = "https://api.themoviedb.org/3";
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+export const IMAGE_BASE_URL_HD = "https://image.tmdb.org/t/p/original";
 export const API_KEY = "ce153341a8faae98ab0def899c8728a9";
 
 export const requests = {
@@ -19,4 +20,11 @@ export const newRelease = {
 export const popular = {
   movie: `/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
   tv: `/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
+};
+
+export const getById = {
+  movie: (id) =>
+    `/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=images,videos`,
+  tv: (id) =>
+    `/tv/${id}?api_key=${API_KEY}&language=en-US&append_to_response=images,videos`,
 };

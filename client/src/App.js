@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import NewRelease from "./pages/NewRelease";
 import Popular from "./pages/Popular";
+import Details from "./pages/Details";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/new" component={NewRelease} />
             <Route exact path="/popular" component={Popular} />
+            <Route exact path="/:category/:id" component={Details} />
           </StoreProvider>
         </Switch>
       </Router>
