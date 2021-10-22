@@ -12,6 +12,11 @@ export const requests = {
 };
 
 export const newRelease = {
-  movie: `/discover/movie?api_key=${API_KEY}&language=en-US&page=1&sort_by=popularity.desc`,
+  movie: `/discover/movie?api_key=${API_KEY}&language=en-US&page=1&sort_by=release_date.desc`,
   tv: `/discover/tv?api_key=${API_KEY}&language=en-US&page=1&sort_by=popularity.desc`,
+};
+
+export const popular = {
+  movie: `/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+  tv: `/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
 };

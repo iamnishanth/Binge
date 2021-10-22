@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL, newRelease, requests } from "../requests";
+import { BASE_URL, newRelease, popular, requests } from "../requests";
 
 const StoreContext = createContext();
 
@@ -9,6 +9,7 @@ export const useStore = () => useContext(StoreContext);
 const StoreProvider = ({ children }) => {
   const [homeContent, setHomeContent] = useState([]);
   const [newContent, setNewContent] = useState({});
+  const [popularContent, setPopularContent] = useState({});
 
   useEffect(() => {
     const fetchHomeContent = async () => {
@@ -44,13 +45,27 @@ const StoreProvider = ({ children }) => {
         tv: tvResult.data.results,
       });
     };
+
+    const fetchPopularContent = async () => {
+      let popularMoviesURL = BASE_URL + popular.movie;
+      let popularTvURL = BASE_URL + popular.tv;
+      let popularMovieResult = await axios.get(popularMoviesURL);
+      let popularTvResult = await axios.get(popularTvURL);
+      setPopularContent({
+        movie: popularMovieResult.data.results,
+        tv: popularTvResult.data.results,
+      });
+    };
+
     fetchHomeContent();
     fetchNewContent();
+    fetchPopularContent();
   }, []);
 
   const value = {
     homeContent,
     newContent,
+    popularContent,
   };
 
   return (

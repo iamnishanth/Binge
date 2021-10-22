@@ -5,6 +5,7 @@ import StoreProvider from "./contexts/StoreContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import NewRelease from "./pages/NewRelease";
+import Popular from "./pages/Popular";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Header />
             <Route exact path="/" component={Home} />
             <Route exact path="/new" component={NewRelease} />
+            <Route exact path="/popular" component={Popular} />
           </StoreProvider>
         </Switch>
       </Router>

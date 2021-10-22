@@ -1,15 +1,14 @@
 import { useState } from "react";
-
 import { useStore } from "../contexts/StoreContext";
 import { IMAGE_BASE_URL } from "../requests";
 
-const NewRelease = () => {
-  const { newContent } = useStore();
+const Popular = () => {
+  const { popularContent } = useStore();
   const [category, setCategory] = useState("movie");
 
   return (
     <div className="px-4 min-h-screen">
-      <h1 className="text-lg font-bold text-center my-5">New Release</h1>
+      <h1 className="text-lg font-bold text-center my-5">Popular</h1>
       <div className="container-fluid flex flex-col">
         <div className="mx-auto">
           <button
@@ -30,9 +29,9 @@ const NewRelease = () => {
           </button>
         </div>
         <div className="row gy-2 gx-1">
-          {newContent.movie &&
-            newContent.tv &&
-            newContent[category].map((poster) => (
+          {popularContent.movie &&
+            popularContent.tv &&
+            popularContent[category].map((poster) => (
               <div
                 className="col-6 md:col-3 lg:col-auto flex justify-center"
                 key={poster.id}
@@ -50,4 +49,4 @@ const NewRelease = () => {
   );
 };
 
-export default NewRelease;
+export default Popular;
