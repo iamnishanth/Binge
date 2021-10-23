@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { ProfileIcon } from "./Icons";
 
 const Header = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const history = useHistory();
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      history.push(`/search/result/${searchQuery}`);
+      setSearchQuery("");
+    }
+  };
+
   return (
     <header className="min-h-14 w-full container-fluid">
       <div className="row gy-3 mt-0 items-center py-2 md:py-0">
@@ -45,6 +56,9 @@ const Header = () => {
             className="bg-secondary py-2 px-4 outline-none w-full rounded"
             type="text"
             placeholder="Search for movies or tv shows"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
         </div>
         <div className="col-1 hidden lg:flex justify-end ">

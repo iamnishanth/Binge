@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import NewRelease from "./pages/NewRelease";
 import Popular from "./pages/Popular";
 import Details from "./pages/Details";
+import SearchResult from "./pages/SearchResult";
 
 const App = () => {
   return (
@@ -19,6 +20,11 @@ const App = () => {
             <Route exact path="/new" component={NewRelease} />
             <Route exact path="/popular" component={Popular} />
             <Route exact path="/:category/:id" component={Details} />
+            <Route
+              exact
+              path="/search/result/:query"
+              component={SearchResult}
+            />
           </StoreProvider>
         </Switch>
       </Router>
