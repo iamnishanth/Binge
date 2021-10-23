@@ -1,6 +1,7 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { SERVER_URL } from "../requests";
 
 const AuthContext = createContext();
 
@@ -20,10 +21,7 @@ const AuthProvider = ({ children }) => {
             Authorization: token,
           },
         };
-        let { data } = await axios.post(
-          "http://localhost:5000/signinWithID",
-          config
-        );
+        let { data } = await axios.post(`${SERVER_URL}/signinWithID`, config);
 
         if (data.message === "jwt expired") {
           localStorage.clear();
@@ -37,7 +35,7 @@ const AuthProvider = ({ children }) => {
   }, [history]);
 
   const signin = async (email, password) => {
-    let res = await axios.post("http://localhost:5000/signin", {
+    let res = await axios.post(`${SERVER_URL}/signin`, {
       email,
       password,
     });
@@ -50,7 +48,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signup = async (email, password) => {
-    let { data } = await axios.post("http://localhost:5000/signup", {
+    let { data } = await axios.post(`${SERVER_URL}/signup`, {
       email,
       password,
     });

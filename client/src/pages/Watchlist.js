@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { IMAGE_BASE_URL } from "../requests";
+import { IMAGE_BASE_URL, SERVER_URL } from "../requests";
 
 const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([]);
@@ -11,7 +11,7 @@ const Watchlist = () => {
 
   useEffect(() => {
     const fetchWatchlist = async () => {
-      let { data } = await axios.post("http://localhost:5000/getWatchlist", {
+      let { data } = await axios.post(`${SERVER_URL}/getWatchlist`, {
         id: currentUser.id,
       });
       setWatchlist(data);
@@ -28,7 +28,7 @@ const Watchlist = () => {
           </h1>
           <div className="row gx-2 gy-2">
             {watchlist.map((item) => (
-              <div className="col-2" key={item.content_id}>
+              <div className="col-6 md:col-4 lg:col-2" key={item.content_id}>
                 <Link to={`/${item.media_type}/${item.content_id}`} role="img">
                   <img
                     className="h-64 rounded w-full object-cover"
