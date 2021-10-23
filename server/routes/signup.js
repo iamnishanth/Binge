@@ -13,8 +13,6 @@ router.post("/signup", async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       watchlist: [],
-      likes: [],
-      seen: [],
     });
 
     let result = await user.save();
