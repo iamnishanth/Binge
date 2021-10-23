@@ -38,8 +38,6 @@ const StoreProvider = ({ children }) => {
       let movieResult = await axios.get(movieURL);
       let tvResult = await axios.get(tvURL);
 
-      console.log({ movieResult, tvResult });
-
       setNewContent({
         movie: movieResult.data.results,
         tv: tvResult.data.results,

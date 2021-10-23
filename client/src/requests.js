@@ -2,6 +2,9 @@ export const BASE_URL = "https://api.themoviedb.org/3";
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const IMAGE_BASE_URL_HD = "https://image.tmdb.org/t/p/original";
 export const API_KEY = "ce153341a8faae98ab0def899c8728a9";
+export const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
+export const YOUTUBE_THUMBNAIL_URL = (key) =>
+  `https://img.youtube.com/vi/${key}/0.jpg`;
 
 export const requests = {
   Trending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
@@ -22,9 +25,11 @@ export const popular = {
   tv: `/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
 };
 
-export const getById = {
-  movie: (id) =>
-    `/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=images,videos`,
-  tv: (id) =>
-    `/tv/${id}?api_key=${API_KEY}&language=en-US&append_to_response=images,videos`,
-};
+export const getById = (type, id) =>
+  `/${type}/${id}?api_key=${API_KEY}&language=en-US&append_to_response=images,videos`;
+
+export const getSimilar = (type, id) =>
+  `/${type}/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
+
+export const search = (query) =>
+  `/search/multi?api_key=${API_KEY}&language=en-US&query=${query}`;
