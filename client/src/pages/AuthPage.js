@@ -1,7 +1,9 @@
+import Auth from "../components/Auth";
+
 const AuthPage = () => {
   return (
-    <div className="">
-      <h1>Auth page</h1>
+    <div className="flex items-center justify-center flex-grow w-full">
+      <Auth />
     </div>
   );
 };
