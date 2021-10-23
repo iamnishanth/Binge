@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
       }
     };
     autoLogin();
-  }, []);
+  }, [history]);
 
   const signin = async (email, password) => {
     let res = await axios.post("http://localhost:5000/signin", {
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
     });
     if (res.data.success) {
       localStorage.setItem("token", res.data.token);
-      history.push("/");
+      window.location.reload();
     } else {
       alert(res.data.message);
     }
@@ -57,7 +57,11 @@ const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const signout = () => {};
+  const signout = () => {
+    localStorage.clear();
+    setCurrentUser({ id: "" });
+    window.location.reload();
+  };
 
   const value = {
     currentUser,

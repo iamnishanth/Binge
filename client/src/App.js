@@ -10,6 +10,9 @@ import Popular from "./pages/Popular";
 import Details from "./pages/Details";
 import SearchResult from "./pages/SearchResult";
 import AuthPage from "./pages/AuthPage";
+import Watchlist from "./pages/Watchlist";
+import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -29,6 +32,8 @@ const App = () => {
                 component={SearchResult}
               />
               <Route exact path="/auth" component={AuthPage} />
+              <PrivateRoute exact path="/watchlist" component={Watchlist} />
+              <PrivateRoute exact path="/profile" component={Profile} />
             </StoreProvider>
           </AuthProvider>
         </Switch>

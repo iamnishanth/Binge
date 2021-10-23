@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import {
   BASE_URL,
   getById,
@@ -11,12 +12,14 @@ import {
   YOUTUBE_THUMBNAIL_URL,
 } from "../requests";
 
-import { BookmarkIcon, LikeIcon, SeenIcon } from "../components/Icons";
+import { BookmarkIcon } from "../components/Icons";
 
 const Details = () => {
   const { category, id } = useParams();
   const [details, setDetails] = useState({});
+  const [showWatchlist, setShowWatchlist] = useState(true);
   const history = useHistory();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +33,61 @@ const Details = () => {
     };
     fetchData();
   }, [id, category]);
+
+  useEffect(() => {
+    const fetchWatchlistCheck = async () => {
+      if (currentUser.id.length > 0 && details.id) {
+        const watchlistCheck = {
+          id: currentUser.id,
+          content_id: details.id,
+        };
+        let { data } = await axios.post(
+          "http://localhost:5000/checkWatchlist",
+          watchlistCheck
+        );
+        if (data.success) {
+          setShowWatchlist(false);
+        } else {
+          setShowWatchlist(true);
+        }
+      }
+    };
+    fetchWatchlistCheck();
+  }, [currentUser, details]);
+
+  const handleWatchlistClick = async () => {
+    let { data } = await axios.post("http://localhost:5000/addWatchlist", {
+      id: currentUser.id,
+      media_type: category,
+      content_id: details.id,
+      poster_path: details.poster_path,
+    });
+    if (data.success) {
+      alert("Added to Watchlist");
+      setShowWatchlist(false);
+    } else {
+      alert("There was a problem in adding watchlist");
+    }
+  };
+
+  const removeWatchlist = async () => {
+    if (currentUser.id.length > 0 && details.id) {
+      const watchlistCheck = {
+        id: currentUser.id,
+        content_id: details.id,
+      };
+      let { data } = await axios.post(
+        "http://localhost:5000/removeWatchlist",
+        watchlistCheck
+      );
+      if (data.success) {
+        alert("Removed from watchlist");
+        setShowWatchlist(true);
+      } else {
+        setShowWatchlist(false);
+      }
+    }
+  };
 
   return (
     <div className="min-h-full">
@@ -89,21 +147,28 @@ const Details = () => {
                       details.title ||
                       details.original_title}
                   </h1>
-                  <div className="w-full h-16 flex items-center justify-evenly bg-secondary rounded">
-                    <button className="flex flex-col items-center gap-2">
-                      <BookmarkIcon />
-                      <h3 className="text-sm">Watchlist</h3>
-                    </button>
-                    <button className="flex flex-col items-center gap-2">
-                      <SeenIcon />
-                      <h3 className="text-sm">Seen</h3>
-                    </button>
-                    <button className="flex flex-col items-center gap-2">
-                      <LikeIcon />
-                      <h3 className="text-sm">Like</h3>
-                    </button>
-                  </div>
-
+                  {currentUser.id.length > 0 && showWatchlist && (
+                    <div className="w-full h-16 flex items-center justify-evenly bg-secondary rounded">
+                      <button
+                        className="flex items-center gap-2"
+                        onClick={handleWatchlistClick}
+                      >
+                        <BookmarkIcon />
+                        <h3 className="text-sm">Add to Watchlist</h3>
+                      </button>
+                    </div>
+                  )}
+                  {currentUser.id.length > 0 && !showWatchlist && (
+                    <div className="w-full h-16 flex items-center justify-evenly bg-secondary rounded">
+                      <button
+                        className="flex items-center gap-2"
+                        onClick={removeWatchlist}
+                      >
+                        <BookmarkIcon />
+                        <h3 className="text-sm">Remove from Watchlist</h3>
+                      </button>
+                    </div>
+                  )}
                   <div className="flex md:hidden w-full p-4 flex-col gap-4">
                     <div className="w-full flex justify-between">
                       <h3 className="text-sm text-gray-500">Rating</h3>
