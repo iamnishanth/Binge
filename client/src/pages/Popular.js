@@ -8,7 +8,7 @@ const Popular = () => {
   const [category, setCategory] = useState("movie");
 
   return (
-    <div className="px-4 min-h-screen">
+    <div className="px-4 min-h-full">
       <h1 className="text-lg font-bold text-center my-5">Popular</h1>
       <div className="container-fluid flex flex-col">
         <div className="mx-auto">

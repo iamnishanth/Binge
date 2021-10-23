@@ -21,7 +21,7 @@ const SearchResult = () => {
   }, [query]);
 
   return (
-    <div className="min-h-screen md:px-12">
+    <div className="min-h-full md:px-12">
       <div className="container-fluid">
         <h1 className="font-semibold text-2xl mt-14 mb-7">
           Search Result for: {query}

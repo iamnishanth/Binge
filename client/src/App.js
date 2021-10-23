@@ -8,10 +8,11 @@ import NewRelease from "./pages/NewRelease";
 import Popular from "./pages/Popular";
 import Details from "./pages/Details";
 import SearchResult from "./pages/SearchResult";
+import AuthPage from "./pages/AuthPage";
 
 const App = () => {
   return (
-    <div className="App bg-primary text-white px-1 md:px-14">
+    <div className="App min-h-full bg-primary text-white px-1 md:px-14">
       <Router>
         <Switch>
           <StoreProvider>
@@ -25,6 +26,7 @@ const App = () => {
               path="/search/result/:query"
               component={SearchResult}
             />
+            <Route exact path="/auth" component={AuthPage} />
           </StoreProvider>
         </Switch>
       </Router>

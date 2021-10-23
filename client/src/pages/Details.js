@@ -32,7 +32,7 @@ const Details = () => {
   }, [id, category]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-full">
       {details.id && (
         <>
           <img

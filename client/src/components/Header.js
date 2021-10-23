@@ -54,7 +54,7 @@ const Header = () => {
         <div className="col-12 lg:col-6">
           <input
             className="bg-secondary py-2 px-4 outline-none w-full rounded"
-            type="text"
+            type="search"
             placeholder="Search for movies or tv shows"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

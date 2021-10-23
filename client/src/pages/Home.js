@@ -6,7 +6,7 @@ const Home = () => {
   const { homeContent } = useStore();
 
   return (
-    <div className="px-4 min-h-screen">
+    <div className="px-4 min-h-full">
       <h1 className="text-2xl md:text-3xl text-center font-bold mt-10 mb-6">
         Movies and TV shows for you
       </h1>
